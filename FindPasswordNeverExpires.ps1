@@ -1,6 +1,6 @@
 ﻿Function Select-FolderDialog
 {
-    param([string]$Description="Vælg hvor filen skal gemmes",[string]$RootFolder="MyComputer")
+    param([string]$Description="Select where the file needs to be stored",[string]$RootFolder="MyComputer")
 
   #[System.Reflection.Assembly]::LoadWithPartialName("System.windows.forms") |
   #   Out-Null   
@@ -18,7 +18,7 @@
             Write-Host "Operation cancelled by user."
         }
 }
-$answer = read-host -Prompt "Vil du gemme denne fil som csv? [Yes/No] "
+$answer = read-host -Prompt "Would you like to save the file as a csv? [Yes/No] "
 $scope = Get-ADUser -Filter {Enabled -eq $true -and PasswordNeverExpires -eq $True}
 #Export-csv "C:\Users\explmm\Documents\CSV-filer\test.csv" -Delimiter ";"
 $ht = @{}
@@ -46,16 +46,16 @@ try
     }
     else{
         $folder = Select-FolderDialog
-        $filename = Read-Host 'Hvad vil du kalde filen?'
+        $filename = Read-Host 'Filename?'
         $ht.Values.GetEnumerator() | Export-Csv -NoTypeInformation -Path "$folder\$filename.csv" -Delimiter ";"
-        Write-Host "Filen er placeret her : '$folder\$filename.csv'" -ForegroundColor Green
+        Write-Host "The file has been placed here : '$folder\$filename.csv'" -ForegroundColor Green
     }
 
 }
 catch
 {
     Write-Host " "
-    Write-Host "Fejl" -ForegroundColor Red
+    Write-Host "Failure" -ForegroundColor Red
     Write-Host " "
    
 }
